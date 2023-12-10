@@ -35,3 +35,28 @@ def sum_games_possible():
     return total
 
 print(sum_games_possible())
+
+def sum_power_of_required_sets():
+    total = 0
+    game_index = 0
+    for line in lines:
+        game_index = game_index + 1
+        game = line.split(":")
+        reveals = game[1].strip().split(";")
+        required_counts = {
+            "red": 0,
+            "green": 0,
+            "blue": 0
+        }
+        for reveal in reveals:
+            cube_colors = reveal.split(",")
+            for color in cube_colors:
+                item = color.strip().split(" ")
+                if int(item[0]) > required_counts[item[1]]:
+                    required_counts[item[1]] = int(item[0])
+        # print(required_counts)
+        total = total + ( required_counts.get("green") * required_counts.get("red") * required_counts.get("blue") )
+
+    return total
+
+print(sum_power_of_required_sets())
